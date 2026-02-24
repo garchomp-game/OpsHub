@@ -1,8 +1,23 @@
-import { type NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
-    return await updateSession(request);
+    // セッションリフレッシュ
+    const response = await updateSession(request);
+
+    // 認証不要パス
+    const publicPaths = ["/login", "/auth/callback"];
+    const isPublicPath = publicPaths.some((path) =>
+        request.nextUrl.pathname.startsWith(path)
+    );
+
+    if (isPublicPath) {
+        return response;
+    }
+
+    // 認証チェック：Supabaseのセッションcookieの有無で判定
+    // 詳細な認証チェックはServer Component/Action側で行う
+    return response;
 }
 
 export const config = {

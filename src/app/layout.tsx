@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Starlight App",
-  description: "Next.js + Ant Design + Supabase",
+  title: "OpsHub",
+  description: "業務統合SaaS — 申請・プロジェクト・工数を一元管理",
 };
 
 export default function RootLayout({

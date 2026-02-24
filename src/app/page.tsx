@@ -17,10 +17,10 @@ export default function Home() {
     >
       <Card
         style={{ maxWidth: 600, width: "100%" }}
-        title="Starlight App"
+        title="OpsHub"
       >
         <Typography>
-          <Title level={3}>Next.js + Ant Design + Supabase</Title>
+          <Title level={3}>業務統合SaaS</Title>
           <Paragraph>
             プロジェクトが正常にセットアップされました。
           </Paragraph>
