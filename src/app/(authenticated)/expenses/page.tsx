@@ -42,7 +42,8 @@ export default async function ExpensesPage({
         .select(`
             *,
             projects ( id, name ),
-            workflows ( id, status, workflow_number )
+            workflows ( id, status, workflow_number ),
+            profiles!expenses_created_by_fkey ( display_name )
         `, { count: "exact" })
         .eq("tenant_id", tenantId)
         .order("created_at", { ascending: false });

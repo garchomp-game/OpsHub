@@ -158,6 +158,8 @@ export async function fetchFilterOptions(): Promise<FilterOptions> {
         "timesheet.create",
         "timesheet.update",
         "timesheet.delete",
+        "expense.create",
+        "expense.submit",
     ];
 
     const resourceTypes = [

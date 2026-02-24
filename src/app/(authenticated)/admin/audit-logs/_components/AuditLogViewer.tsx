@@ -60,6 +60,8 @@ const ACTION_LABELS: Record<string, { label: string; color: string }> = {
     "timesheet.create": { label: "工数作成", color: "blue" },
     "timesheet.update": { label: "工数更新", color: "geekblue" },
     "timesheet.delete": { label: "工数削除", color: "red" },
+    "expense.create": { label: "経費作成", color: "blue" },
+    "expense.submit": { label: "経費申請", color: "cyan" },
 };
 
 // リソース種別の表示ラベル

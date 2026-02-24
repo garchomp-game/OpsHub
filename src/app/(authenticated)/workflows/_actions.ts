@@ -117,6 +117,19 @@ export const createWorkflow = withAuth(async (user, supabase, input: CreateWorkf
         after: data as unknown as Record<string, unknown>,
     });
 
+    // submitted の場合、承認者に通知
+    if (status === "submitted") {
+        await createNotification(supabase, {
+            tenantId,
+            userId: input.approver_id,
+            type: "workflow_submitted",
+            title: `新しい申請が届きました: ${input.title}`,
+            body: `「${input.title}」が申請されました`,
+            resourceType: "workflow",
+            resourceId: data.id,
+        });
+    }
+
     revalidatePath("/workflows");
     return data;
 });
