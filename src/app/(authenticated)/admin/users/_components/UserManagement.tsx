@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import {
+    App,
     Table,
     Input,
     Select,
@@ -9,7 +10,6 @@ import {
     Tag,
     Space,
     Typography,
-    message,
 } from "antd";
 import { PlusOutlined, ReloadOutlined } from "@ant-design/icons";
 import type { TableProps } from "antd";
@@ -34,6 +34,7 @@ export default function UserManagement({
     currentUserId,
     isItAdmin,
 }: Props) {
+    const { message } = App.useApp();
     const [users, setUsers] = useState<TenantUser[]>([]);
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(true);

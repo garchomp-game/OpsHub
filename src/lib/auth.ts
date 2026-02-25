@@ -31,7 +31,8 @@ export async function requireAuth(): Promise<CurrentUser> {
     // ユーザーのロール情報を取得
     const { data: userRoles } = await supabase
         .from("user_roles")
-        .select("tenant_id, role");
+        .select("tenant_id, role")
+        .eq("user_id", user.id);
 
     const roles = (userRoles ?? []).map((r) => ({
         tenantId: r.tenant_id as string,
@@ -96,7 +97,8 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
 
     const { data: userRoles } = await supabase
         .from("user_roles")
-        .select("tenant_id, role");
+        .select("tenant_id, role")
+        .eq("user_id", user.id);
 
     const roles = (userRoles ?? []).map((r) => ({
         tenantId: r.tenant_id as string,

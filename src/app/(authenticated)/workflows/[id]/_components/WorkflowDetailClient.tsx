@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
+    App,
     Typography,
     Card,
     Descriptions,
@@ -14,7 +15,6 @@ import {
     Input,
     InputNumber,
     Select,
-    message,
     Alert,
     Divider,
     Modal,
@@ -79,6 +79,7 @@ export default function WorkflowDetailClient({
 }: Props) {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
+    const { message } = App.useApp();
     const [isEditing, setIsEditing] = useState(false);
     const [rejectModalOpen, setRejectModalOpen] = useState(false);
     const [rejectionReason, setRejectionReason] = useState("");

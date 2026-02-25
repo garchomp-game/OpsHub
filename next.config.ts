@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 // ─── セキュリティヘッダー（NFR-01f） ─────────────────────
+// ローカル開発時は Supabase が http://127.0.0.1:54321 で動作する
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+
 const securityHeaders = [
   {
     key: "Content-Security-Policy",
@@ -10,7 +13,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline'", // Ant Design
       "img-src 'self' data: blob:",
       "font-src 'self'",
-      "connect-src 'self' https://*.supabase.co wss://*.supabase.co",
+      `connect-src 'self' ${supabaseUrl} https://*.supabase.co wss://*.supabase.co`,
       "frame-ancestors 'none'",
     ].join("; "),
   },
@@ -32,3 +35,4 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+

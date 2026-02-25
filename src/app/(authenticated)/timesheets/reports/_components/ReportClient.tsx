@@ -2,6 +2,7 @@
 
 import { useState, useTransition, useEffect } from "react";
 import {
+    App,
     Typography,
     Card,
     Button,
@@ -13,7 +14,6 @@ import {
     Statistic,
     Row,
     Col,
-    message,
     Empty,
 } from "antd";
 import {
@@ -64,6 +64,7 @@ export default function ReportClient({
     canViewOthers,
     currentUserId,
 }: Props) {
+    const { message } = App.useApp();
     const [isPending, startTransition] = useTransition();
     const [dateRange, setDateRange] = useState<[string, string] | null>(null);
     const [selectedProject, setSelectedProject] = useState<string | undefined>();

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Modal, Form, Input, Checkbox, message } from "antd";
+import { App, Modal, Form, Input, Checkbox } from "antd";
 import { inviteUser } from "../_actions";
 import { ROLES, ROLE_LABELS } from "@/types";
 
@@ -24,6 +24,7 @@ export default function InviteModal({
 }: Props) {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
+    const { message } = App.useApp();
 
     // IT Admin でない場合は it_admin ロールを除外
     const availableRoles = ROLES.filter(

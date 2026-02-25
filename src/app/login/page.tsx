@@ -1,39 +1,48 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Card, Form, Input, Typography, message, Space } from "antd";
+import { App, Button, Card, Flex, Form, Input, Typography } from "antd";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
 const { Title, Text } = Typography;
 
+/**
+ * LoginPage — グローバル <App> コンテキストから useApp() でアクセス
+ */
 export default function LoginPage() {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const { message } = App.useApp();
 
     const handleLogin = async (values: { email: string; password: string }) => {
         setLoading(true);
-        const supabase = createClient();
+        try {
+            const supabase = createClient();
 
-        const { error } = await supabase.auth.signInWithPassword({
-            email: values.email,
-            password: values.password,
-        });
+            const { error } = await supabase.auth.signInWithPassword({
+                email: values.email,
+                password: values.password,
+            });
 
-        if (error) {
-            message.error(
-                error.message === "Invalid login credentials"
-                    ? "メールアドレスまたはパスワードが正しくありません"
-                    : error.message
-            );
+            if (error) {
+                message.error(
+                    error.message === "Invalid login credentials"
+                        ? "メールアドレスまたはパスワードが正しくありません"
+                        : error.message
+                );
+                setLoading(false);
+                return;
+            }
+
+            message.success("ログインしました");
+            router.push("/");
+            router.refresh();
+        } catch {
+            message.error("サーバーに接続できません。Supabase が起動しているか確認してください。");
             setLoading(false);
-            return;
         }
-
-        message.success("ログインしました");
-        router.push("/");
-        router.refresh();
     };
 
     return (
@@ -53,9 +62,9 @@ export default function LoginPage() {
                     borderRadius: 12,
                 }}
             >
-                <Space
-                    direction="vertical"
-                    size="large"
+                <Flex
+                    vertical
+                    gap="large"
                     style={{ width: "100%", textAlign: "center" }}
                 >
                     <div>
@@ -110,7 +119,7 @@ export default function LoginPage() {
                             </Button>
                         </Form.Item>
                     </Form>
-                </Space>
+                </Flex>
             </Card>
         </div>
     );

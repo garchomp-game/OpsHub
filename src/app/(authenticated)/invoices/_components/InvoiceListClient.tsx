@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Table, Tag, Space, Card, Select, Button, DatePicker, Modal, Dropdown, message, Typography } from "antd";
+import { App, Table, Tag, Space, Card, Select, Button, DatePicker, Dropdown, Typography } from "antd";
 import type { MenuProps } from "antd";
 import { DeleteOutlined, DownOutlined, EyeOutlined, PlusOutlined } from "@ant-design/icons";
 import Link from "next/link";
@@ -54,7 +54,7 @@ export default function InvoiceListClient({
 }: Props) {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
-    const [messageApi, contextHolder] = message.useMessage();
+    const { message, modal } = App.useApp();
 
     // フィルタ state
     const [filterStatus, setFilterStatus] = useState<string | undefined>(currentFilters.status);
@@ -74,7 +74,7 @@ export default function InvoiceListClient({
 
     // 削除
     const handleDelete = (invoiceId: string, invoiceNumber: string) => {
-        Modal.confirm({
+        modal.confirm({
             title: "請求書を削除",
             content: `${invoiceNumber} を削除してよろしいですか？この操作は取り消せません。`,
             okText: "削除",
@@ -83,12 +83,12 @@ export default function InvoiceListClient({
             onOk: async () => {
                 const result = await deleteInvoice({ invoice_id: invoiceId });
                 if (result.success) {
-                    messageApi.success("請求書を削除しました");
+                    message.success("請求書を削除しました");
                     startTransition(() => {
                         router.refresh();
                     });
                 } else {
-                    messageApi.error(result.error.message);
+                    message.error(result.error.message);
                 }
             },
         });
@@ -98,12 +98,12 @@ export default function InvoiceListClient({
     const handleStatusChange = async (invoiceId: string, newStatus: "sent" | "paid" | "cancelled") => {
         const result = await updateInvoiceStatus({ id: invoiceId, status: newStatus });
         if (result.success) {
-            messageApi.success("ステータスを変更しました");
+            message.success("ステータスを変更しました");
             startTransition(() => {
                 router.refresh();
             });
         } else {
-            messageApi.error(result.error.message);
+            message.error(result.error.message);
         }
     };
 
@@ -223,7 +223,6 @@ export default function InvoiceListClient({
 
     return (
         <div>
-            {contextHolder}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
                 <Title level={2} style={{ margin: 0 }}>請求一覧</Title>
                 {isAdmin && (

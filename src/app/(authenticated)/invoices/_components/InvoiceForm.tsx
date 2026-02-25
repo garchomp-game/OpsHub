@@ -3,6 +3,7 @@
 import { useState, useTransition, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import {
+    App,
     Form,
     Input,
     Select,
@@ -11,7 +12,6 @@ import {
     Button,
     Card,
     Typography,
-    message,
     Space,
     Divider,
     Table,
@@ -93,6 +93,7 @@ export default function InvoiceForm({
     const router = useRouter();
     const [form] = Form.useForm();
     const [isPending, startTransition] = useTransition();
+    const { message } = App.useApp();
 
     // 明細行の状態管理
     const [items, setItems] = useState<InvoiceItem[]>(() => {

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import {
+    App,
     Drawer,
     Descriptions,
     Checkbox,
@@ -9,7 +10,6 @@ import {
     Space,
     Popconfirm,
     Tag,
-    message,
     Divider,
     Typography,
 } from "antd";
@@ -90,6 +90,7 @@ export default function UserDetailPanel({
     currentUserId,
     isItAdmin,
 }: Props) {
+    const { message } = App.useApp();
     const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
     const [saving, setSaving] = useState(false);
 

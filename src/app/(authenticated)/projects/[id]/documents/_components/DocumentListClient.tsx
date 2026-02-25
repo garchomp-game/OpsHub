@@ -3,14 +3,13 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
+    App,
     Typography,
     Table,
     Button,
     Space,
     Tag,
     Upload,
-    Modal,
-    message,
 } from "antd";
 import {
     UploadOutlined,
@@ -112,6 +111,7 @@ export default function DocumentListClient({
 }: Props) {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
+    const { message, modal } = App.useApp();
     const [uploading, setUploading] = useState(false);
 
     // ─── Upload Handler ─────────────────────────────
@@ -171,7 +171,7 @@ export default function DocumentListClient({
     // ─── Delete Handler ─────────────────────────────
 
     const handleDelete = (doc: DocumentItem) => {
-        Modal.confirm({
+        modal.confirm({
             title: "ドキュメント削除",
             content: `${doc.name} を削除しますか？`,
             okText: "削除",

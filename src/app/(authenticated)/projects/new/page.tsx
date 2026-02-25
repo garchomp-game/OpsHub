@@ -3,6 +3,7 @@
 import { useState, useEffect, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
+    App,
     Form,
     Input,
     DatePicker,
@@ -10,7 +11,6 @@ import {
     Button,
     Card,
     Typography,
-    message,
     Space,
 } from "antd";
 import { createProject, getTenantUsers } from "../_actions";
@@ -28,6 +28,7 @@ export default function NewProjectPage() {
     const router = useRouter();
     const [form] = Form.useForm();
     const [isPending, startTransition] = useTransition();
+    const { message } = App.useApp();
     const [users, setUsers] = useState<TenantUser[]>([]);
 
     useEffect(() => {

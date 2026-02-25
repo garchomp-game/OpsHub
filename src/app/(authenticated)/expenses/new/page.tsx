@@ -3,6 +3,7 @@
 import { useState, useEffect, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
+    App,
     Form,
     Input,
     Select,
@@ -11,7 +12,6 @@ import {
     Button,
     Card,
     Typography,
-    message,
     Space,
     Divider,
 } from "antd";
@@ -42,6 +42,7 @@ export default function NewExpensePage() {
     const router = useRouter();
     const [form] = Form.useForm();
     const [isPending, startTransition] = useTransition();
+    const { message } = App.useApp();
     const [projects, setProjects] = useState<Project[]>([]);
     const [approvers, setApprovers] = useState<Approver[]>([]);
 

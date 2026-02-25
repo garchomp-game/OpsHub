@@ -3,6 +3,7 @@
 import { useState, useEffect, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
+    App,
     Form,
     Input,
     Select,
@@ -11,7 +12,6 @@ import {
     Button,
     Card,
     Typography,
-    message,
     Space,
     Divider,
 } from "antd";
@@ -30,6 +30,7 @@ export default function NewWorkflowPage() {
     const router = useRouter();
     const [form] = Form.useForm();
     const [isPending, startTransition] = useTransition();
+    const { message } = App.useApp();
     const [approvers, setApprovers] = useState<Approver[]>([]);
     const [selectedType, setSelectedType] = useState<string>("other");
 

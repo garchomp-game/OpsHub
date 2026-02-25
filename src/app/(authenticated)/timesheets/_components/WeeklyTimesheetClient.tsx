@@ -3,6 +3,7 @@
 import { useState, useTransition, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import {
+    App,
     Typography,
     Card,
     Button,
@@ -10,7 +11,6 @@ import {
     InputNumber,
     Select,
     Table,
-    message,
     Tag,
     Popconfirm,
 } from "antd";
@@ -74,6 +74,7 @@ export default function WeeklyTimesheetClient({
 }: Props) {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
+    const { message } = App.useApp();
 
     // 既存データから行データを構築
     const initialRows = useMemo(() => {

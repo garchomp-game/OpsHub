@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import {
+    App,
     Typography,
     Card,
     Button,
@@ -15,7 +16,6 @@ import {
     Row,
     Col,
     Progress,
-    message,
     Empty,
 } from "antd";
 import {
@@ -83,6 +83,7 @@ export default function ExpenseSummaryClient({
     stats: initialStats,
     projects,
 }: Props) {
+    const { message } = App.useApp();
     const [isPending, startTransition] = useTransition();
 
     // フィルタ状態

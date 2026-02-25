@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import {
+    App,
     Tabs,
     Card,
     Form,
@@ -14,7 +15,6 @@ import {
     Switch,
     InputNumber,
     Select,
-    message,
     Popconfirm,
     Spin,
     Typography,
@@ -44,6 +44,7 @@ type Props = {
 };
 
 export default function TenantManagement({ tenantId, isItAdmin }: Props) {
+    const { message } = App.useApp();
     const [tenant, setTenant] = useState<TenantDetail | null>(null);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);

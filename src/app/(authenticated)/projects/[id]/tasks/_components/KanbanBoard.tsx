@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
+    App,
     Typography,
     Card,
     Tag,
@@ -14,7 +15,6 @@ import {
     Select,
     DatePicker,
     Popconfirm,
-    message,
     Empty,
     Tooltip,
 } from "antd";
@@ -83,6 +83,7 @@ export default function KanbanBoard({
 }: Props) {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
+    const { message } = App.useApp();
     const [createModalOpen, setCreateModalOpen] = useState(false);
     const [editingTask, setEditingTask] = useState<Task | null>(null);
     const [createForm] = Form.useForm();

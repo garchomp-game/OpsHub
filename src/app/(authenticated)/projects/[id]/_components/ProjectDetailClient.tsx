@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
+    App,
     Typography,
     Tabs,
     Card,
@@ -16,7 +17,6 @@ import {
     Statistic,
     Row,
     Col,
-    message,
     Modal,
     Input,
 } from "antd";
@@ -93,6 +93,7 @@ export default function ProjectDetailClient({
 }: Props) {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
+    const { message } = App.useApp();
     const [editingName, setEditingName] = useState(false);
     const [nameValue, setNameValue] = useState(project.name);
     const [addMemberModalOpen, setAddMemberModalOpen] = useState(false);
