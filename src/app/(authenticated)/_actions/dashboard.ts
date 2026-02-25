@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { requireAuth } from "@/lib/auth";
+import { logger } from "@/lib/logger";
 import type { Tables } from "@/types/database";
 
 // ─── Types ─────────────────────────────────────────
@@ -29,7 +30,7 @@ export async function getPendingApprovalsCount(): Promise<number> {
         .eq("approver_id", user.id);
 
     if (error) {
-        console.error("承認待ち件数の取得に失敗:", error);
+        logger.error("承認待ち件数の取得に失敗", { supabaseError: error });
         return 0;
     }
 
@@ -50,7 +51,7 @@ export async function getMyWorkflowsCount(): Promise<number> {
         .in("status", ["draft", "submitted"]);
 
     if (error) {
-        console.error("自分の申請数の取得に失敗:", error);
+        logger.error("自分の申請数の取得に失敗", { supabaseError: error });
         return 0;
     }
 
@@ -71,7 +72,7 @@ export async function getMyTasksCount(): Promise<number> {
         .neq("status", "done");
 
     if (error) {
-        console.error("担当タスク数の取得に失敗:", error);
+        logger.error("担当タスク数の取得に失敗", { supabaseError: error });
         return 0;
     }
 
@@ -108,7 +109,7 @@ export async function getWeeklyHours(): Promise<number> {
         .lte("work_date", sundayStr);
 
     if (error) {
-        console.error("週次工数の取得に失敗:", error);
+        logger.error("週次工数の取得に失敗", { supabaseError: error });
         return 0;
     }
 
@@ -175,7 +176,7 @@ export async function getUnreadNotifications(): Promise<NotificationRow[]> {
         .limit(5);
 
     if (error) {
-        console.error("未読通知の取得に失敗:", error);
+        logger.error("未読通知の取得に失敗", { supabaseError: error });
         return [];
     }
 

@@ -113,3 +113,19 @@ export const WORKFLOW_TRANSITIONS: Record<WorkflowStatus, WorkflowStatus[]> = {
     rejected: ["submitted", "withdrawn"],
     withdrawn: [],
 };
+
+export const INVOICE_STATUSES = [
+    "draft",
+    "sent",
+    "paid",
+    "cancelled",
+] as const;
+
+export type InvoiceStatus = (typeof INVOICE_STATUSES)[number];
+
+export const INVOICE_TRANSITIONS: Record<InvoiceStatus, InvoiceStatus[]> = {
+    draft: ["sent", "cancelled"],
+    sent: ["paid", "cancelled"],
+    paid: [],
+    cancelled: [],
+};

@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { requireAuth, type CurrentUser } from "@/lib/auth";
+import { logger } from "@/lib/logger";
 import type { ActionResult } from "@/types";
 
 // ─── Server Action ラッパー ──────────────────────────
@@ -33,6 +34,7 @@ export function withAuth<TInput, TOutput>(
         } catch (error) {
             const message = error instanceof Error ? error.message : "予期しないエラーが発生しました";
             const code = message.startsWith("ERR-") ? message.split(":")[0].trim() : "ERR-SYS-001";
+            logger.error("Server Action failed", { code }, error instanceof Error ? error : undefined);
             return {
                 success: false,
                 error: { code, message },

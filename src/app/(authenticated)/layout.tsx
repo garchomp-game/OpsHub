@@ -6,14 +6,17 @@ import {
     ClockCircleOutlined,
     FileTextOutlined,
     DollarOutlined,
+    ContainerOutlined,
     TeamOutlined,
     SettingOutlined,
     AuditOutlined,
     LogoutOutlined,
     UserOutlined,
+    BarChartOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import NotificationBell from "./_components/NotificationBell";
+import HeaderSearchBar from "./_components/HeaderSearchBar";
 import {
     getNotifications,
     getUnreadCount,
@@ -55,7 +58,16 @@ const sidebarItems = [
     {
         key: "expenses",
         icon: <DollarOutlined />,
-        label: <Link href="/expenses">経費管理</Link>,
+        label: "経費管理",
+        children: [
+            { key: "exp-list", label: <Link href="/expenses">経費一覧</Link> },
+            { key: "exp-summary", icon: <BarChartOutlined />, label: <Link href="/expenses/summary">経費集計</Link> },
+        ],
+    },
+    {
+        key: "invoices",
+        icon: <ContainerOutlined />,
+        label: <Link href="/invoices">請求管理</Link>,
     },
     {
         key: "admin",
@@ -142,13 +154,14 @@ export default async function AuthenticatedLayout({
                         padding: "0 24px",
                         display: "flex",
                         alignItems: "center",
-                        justifyContent: "flex-end",
+                        justifyContent: "space-between",
                         boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
                         position: "sticky",
                         top: 0,
                         zIndex: 10,
                     }}
                 >
+                    <HeaderSearchBar />
                     <Space size="middle">
                         <NotificationBell
                             initialCount={initialUnreadCount}

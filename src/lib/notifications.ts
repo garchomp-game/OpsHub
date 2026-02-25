@@ -1,4 +1,5 @@
 import type { createClient } from "@/lib/supabase/server";
+import { logger } from "@/lib/logger";
 
 // ─── 通知作成ヘルパー ────────────────────────────────
 
@@ -44,7 +45,7 @@ export async function createNotification(
     });
 
     if (error) {
-        console.error("通知の作成に失敗しました:", error);
+        logger.error("通知の作成に失敗しました", { userId: input.userId, type: input.type, supabaseError: error });
     }
 }
 

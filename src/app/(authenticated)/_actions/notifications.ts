@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { requireAuth } from "@/lib/auth";
+import { logger } from "@/lib/logger";
 import type { Tables } from "@/types/database";
 
 // ─── Types ─────────────────────────────────────────
@@ -25,7 +26,7 @@ export async function getNotifications(): Promise<NotificationRow[]> {
         .limit(20);
 
     if (error) {
-        console.error("通知の取得に失敗しました:", error);
+        logger.error("通知の取得に失敗しました", { supabaseError: error });
         return [];
     }
 
@@ -46,7 +47,7 @@ export async function getUnreadCount(): Promise<number> {
         .eq("is_read", false);
 
     if (error) {
-        console.error("未読件数の取得に失敗しました:", error);
+        logger.error("未読件数の取得に失敗しました", { supabaseError: error });
         return 0;
     }
 

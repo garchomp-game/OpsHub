@@ -25,6 +25,7 @@ import {
     UserAddOutlined,
     DeleteOutlined,
     CheckCircleOutlined,
+    FileOutlined,
 } from "@ant-design/icons";
 import { updateProject, addMember, removeMember } from "../../_actions";
 import type { ProjectStatus } from "@/types";
@@ -385,6 +386,17 @@ export default function ProjectDetailClient({
         </Card>
     );
 
+    const documentsTab = (
+        <Card>
+            <Space direction="vertical" style={{ width: "100%" }}>
+                <Text>プロジェクトに関連するドキュメントを管理できます。</Text>
+                <Button type="primary" icon={<FileOutlined />} onClick={() => router.push(`/projects/${project.id}/documents`)}>
+                    ドキュメント管理を開く
+                </Button>
+            </Space>
+        </Card>
+    );
+
     return (
         <div>
             <div style={{ marginBottom: 16 }}>
@@ -398,6 +410,7 @@ export default function ProjectDetailClient({
                     { key: "members", label: `メンバー (${members.length})`, children: membersTab },
                     { key: "tasks", label: `タスク (${taskStats.total})`, children: tasksTab },
                     { key: "timesheets", label: "工数", children: timesheetsTab },
+                    { key: "documents", label: "ドキュメント", children: documentsTab },
                 ]}
             />
         </div>
