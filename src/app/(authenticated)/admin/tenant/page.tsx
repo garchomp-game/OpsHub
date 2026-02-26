@@ -1,5 +1,4 @@
 import { requireAuth, hasRole } from "@/lib/auth";
-import { createClient } from "@/lib/supabase/server";
 import TenantManagement from "./_components/TenantManagement";
 
 export default async function TenantPage() {

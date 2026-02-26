@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import {
     App,
     Table,
@@ -48,7 +48,7 @@ export default function UserManagement({
     );
     const [detailOpen, setDetailOpen] = useState(false);
 
-    const fetchUsers = useCallback(async () => {
+    const fetchUsers = async () => {
         setLoading(true);
         const result = await getUsers({
             tenantId,
@@ -65,11 +65,11 @@ export default function UserManagement({
             message.error(result.error.message);
         }
         setLoading(false);
-    }, [tenantId, search, roleFilter, statusFilter, page]);
+    };
 
     useEffect(() => {
-        fetchUsers();
-    }, [fetchUsers]);
+        fetchUsers(); // eslint-disable-line react-hooks/set-state-in-effect
+    }, [tenantId, search, roleFilter, statusFilter, page, message]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleRowClick = (user: TenantUser) => {
         setSelectedUser(user);

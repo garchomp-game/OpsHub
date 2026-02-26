@@ -82,7 +82,7 @@ export default function DashboardContent({
                                 value={pendingApprovals}
                                 prefix={<CheckCircleOutlined />}
                                 suffix="件"
-                                valueStyle={pendingApprovals > 0 ? { color: "#cf1322" } : undefined}
+                                styles={pendingApprovals > 0 ? { content: { color: "#cf1322" } } : undefined}
                             />
                         </Card>
                     </Col>

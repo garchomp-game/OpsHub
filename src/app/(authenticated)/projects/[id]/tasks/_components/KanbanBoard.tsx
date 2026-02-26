@@ -351,6 +351,7 @@ export default function KanbanBoard({
             <Modal
                 title="新規タスク作成"
                 open={createModalOpen}
+                forceRender
                 onCancel={() => {
                     setCreateModalOpen(false);
                     createForm.resetFields();
@@ -400,6 +401,7 @@ export default function KanbanBoard({
             <Modal
                 title="タスク編集"
                 open={!!editingTask}
+                forceRender
                 onCancel={() => {
                     setEditingTask(null);
                     editForm.resetFields();

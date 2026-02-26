@@ -12,7 +12,6 @@ import {
     Upload,
 } from "antd";
 import {
-    UploadOutlined,
     DownloadOutlined,
     DeleteOutlined,
     InboxOutlined,

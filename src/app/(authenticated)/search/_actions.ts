@@ -164,7 +164,7 @@ export const searchAll = withAuth(async (user, supabase, input: SearchAllInput):
         if (category !== "all" && category !== "expenses") return { items: [], count: 0 };
         let q = supabase
             .from("expenses")
-            .select("id, description, category, amount, status, created_at", { count: "exact" })
+            .select("id, description, category, amount, expense_date, created_at, workflow_id, workflows(status)", { count: "exact" })
             .eq("tenant_id", tenantId)
             .ilike("description", pattern)
             .order("created_at", { ascending: false })
@@ -182,9 +182,9 @@ export const searchAll = withAuth(async (user, supabase, input: SearchAllInput):
                 id: e.id,
                 category: "expense",
                 title: e.description ?? "",
-                status: e.status,
+                status: (e.workflows as unknown as { status: string } | null)?.status ?? "—",
                 createdAt: e.created_at,
-                link: `/expenses/${e.id}`,
+                link: `/expenses`,
                 metadata: {
                     amount: e.amount,
                     expenseCategory: e.category,

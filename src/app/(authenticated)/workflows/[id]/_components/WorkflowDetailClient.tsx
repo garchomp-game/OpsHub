@@ -83,7 +83,7 @@ export default function WorkflowDetailClient({
     const [isEditing, setIsEditing] = useState(false);
     const [rejectModalOpen, setRejectModalOpen] = useState(false);
     const [rejectionReason, setRejectionReason] = useState("");
-    const [form] = Form.useForm();
+
 
     const statusInfo = STATUS_LABELS[workflow.status] || { label: workflow.status, color: "default" };
     const canEdit = isOwner && (workflow.status === "draft" || workflow.status === "rejected");
@@ -180,7 +180,6 @@ export default function WorkflowDetailClient({
                 <Title level={2}>申請を編集</Title>
                 <Card>
                     <Form
-                        form={form}
                         layout="vertical"
                         initialValues={{
                             title: workflow.title,

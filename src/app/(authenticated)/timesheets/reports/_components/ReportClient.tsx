@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition, useEffect } from "react";
+import { useState, useTransition } from "react";
 import {
     App,
     Typography,
@@ -10,7 +10,6 @@ import {
     Select,
     DatePicker,
     Table,
-    Tag,
     Statistic,
     Row,
     Col,
@@ -66,24 +65,21 @@ export default function ReportClient({
 }: Props) {
     const { message } = App.useApp();
     const [isPending, startTransition] = useTransition();
-    const [dateRange, setDateRange] = useState<[string, string] | null>(null);
+    const [dateRange, setDateRange] = useState<[string, string] | null>(() => {
+        const now = new Date();
+        const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+        const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+        return [
+            firstDay.toISOString().split("T")[0],
+            lastDay.toISOString().split("T")[0],
+        ];
+    });
     const [selectedProject, setSelectedProject] = useState<string | undefined>();
     const [selectedMember, setSelectedMember] = useState<string | undefined>();
     const [projectData, setProjectData] = useState<ProjectSummary[]>([]);
     const [memberData, setMemberData] = useState<MemberSummary[]>([]);
     const [grandTotal, setGrandTotal] = useState(0);
     const [loaded, setLoaded] = useState(false);
-
-    // デフォルトで今月の期間を設定
-    useEffect(() => {
-        const now = new Date();
-        const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
-        const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-        setDateRange([
-            firstDay.toISOString().split("T")[0],
-            lastDay.toISOString().split("T")[0],
-        ]);
-    }, []);
 
     const handleSearch = () => {
         if (!dateRange) {

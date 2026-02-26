@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import {
     App,
     Tabs,
@@ -52,7 +52,7 @@ export default function TenantManagement({ tenantId, isItAdmin }: Props) {
     const [basicForm] = Form.useForm();
     const [settingsForm] = Form.useForm();
 
-    const fetchTenant = useCallback(async () => {
+    const fetchTenant = async () => {
         setLoading(true);
         const result = await getTenantDetail(tenantId);
         if (result.success) {
@@ -81,11 +81,11 @@ export default function TenantManagement({ tenantId, isItAdmin }: Props) {
             message.error(result.error.message);
         }
         setLoading(false);
-    }, [tenantId, basicForm, settingsForm]);
+    };
 
     useEffect(() => {
-        fetchTenant();
-    }, [fetchTenant]);
+        fetchTenant(); // eslint-disable-line react-hooks/set-state-in-effect
+    }, [tenantId]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleUpdateBasic = async (values: {
         name: string;
@@ -373,7 +373,7 @@ export default function TenantManagement({ tenantId, isItAdmin }: Props) {
     return (
         <div>
             <Title level={3}>テナント管理</Title>
-            <Tabs items={tabItems} />
+            <Tabs items={tabItems} destroyInactiveTabPane={false} />
 
             {isItAdmin && (
                 <Card

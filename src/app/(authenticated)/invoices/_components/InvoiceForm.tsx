@@ -482,15 +482,17 @@ export default function InvoiceForm({
                     <Space>
                         <Text>消費税率:</Text>
                         {isEditable ? (
-                            <InputNumber
-                                value={taxRate}
-                                min={0}
-                                max={100}
-                                step={1}
-                                addonAfter="%"
-                                style={{ width: 120 }}
-                                onChange={(val) => setTaxRate(val ?? 10)}
-                            />
+                            <Space.Compact>
+                                <InputNumber
+                                    value={taxRate}
+                                    min={0}
+                                    max={100}
+                                    step={1}
+                                    style={{ width: 90 }}
+                                    onChange={(val) => setTaxRate(val ?? 10)}
+                                />
+                                <span style={{ display: 'inline-flex', alignItems: 'center', padding: '0 8px', border: '1px solid #d9d9d9', borderLeft: 'none', borderRadius: '0 6px 6px 0', background: '#fafafa' }}>%</span>
+                            </Space.Compact>
                         ) : (
                             <Text>{taxRate}%</Text>
                         )}

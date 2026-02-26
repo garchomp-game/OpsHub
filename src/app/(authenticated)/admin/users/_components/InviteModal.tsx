@@ -66,7 +66,7 @@ export default function InviteModal({
             confirmLoading={loading}
             okText="招待を送信"
             cancelText="キャンセル"
-            destroyOnClose
+            destroyOnHidden={false}
         >
             <Form
                 form={form}

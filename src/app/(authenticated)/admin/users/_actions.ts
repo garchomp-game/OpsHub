@@ -2,9 +2,9 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { requireAuth, requireRole, hasRole } from "@/lib/auth";
+import { requireRole, hasRole } from "@/lib/auth";
 import { withAuth, writeAuditLog } from "@/lib/actions";
-import type { Role, ActionResult } from "@/types";
+import type { ActionResult } from "@/types";
 
 // ─── Types ──────────────────────────────────────────
 

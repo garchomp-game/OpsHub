@@ -31,7 +31,7 @@ import { updateProject, addMember, removeMember } from "../../_actions";
 import type { ProjectStatus } from "@/types";
 import { PROJECT_TRANSITIONS } from "@/types";
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const STATUS_LABELS: Record<string, { label: string; color: string }> = {
     planning: { label: "計画中", color: "blue" },
@@ -88,7 +88,7 @@ export default function ProjectDetailClient({
     taskStats,
     tenantUsers,
     canEdit,
-    currentUserId,
+    currentUserId: _currentUserId,
     pmDisplayName,
 }: Props) {
     const router = useRouter();

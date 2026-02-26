@@ -352,8 +352,7 @@ export const getInvoiceById = withAuth(async (user, supabase, input: { invoice_i
         .select(`
             *,
             invoice_items ( id, description, quantity, unit_price, amount, sort_order ),
-            projects ( id, name ),
-            profiles!invoices_created_by_fkey ( display_name )
+            projects ( id, name )
         `)
         .eq("id", input.invoice_id)
         .eq("tenant_id", tenantId)
@@ -413,8 +412,7 @@ export const getInvoices = withAuth(async (user, supabase, input: GetInvoicesInp
         .from("invoices")
         .select(`
             *,
-            projects ( id, name ),
-            profiles!invoices_created_by_fkey ( display_name )
+            projects ( id, name )
         `, { count: "exact" })
         .eq("tenant_id", tenantId)
         .order("issued_date", { ascending: false })

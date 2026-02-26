@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { requireAuth, requireRole } from "@/lib/auth";
+import { requireRole } from "@/lib/auth";
 import { withAuth, writeAuditLog } from "@/lib/actions";
 import type { ActionResult } from "@/types";
 import type { Json } from "@/types/database";
@@ -38,7 +38,7 @@ export async function getTenantDetail(
     tenantId: string
 ): Promise<ActionResult<TenantDetail>> {
     try {
-        const user = await requireRole(tenantId, [
+        const _user = await requireRole(tenantId, [
             "tenant_admin",
             "it_admin",
         ]);

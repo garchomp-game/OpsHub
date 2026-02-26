@@ -21,7 +21,7 @@ import {
     SaveOutlined,
     DeleteOutlined,
 } from "@ant-design/icons";
-import { bulkUpdateTimesheets, deleteTimesheet } from "../_actions";
+import { bulkUpdateTimesheets } from "../_actions";
 
 const { Title, Text } = Typography;
 
